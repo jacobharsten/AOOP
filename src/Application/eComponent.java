@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.geom.*;
 
 import framework.*;
+/*
+ * Här är våran kompnetnentsn
+ */
 
 public class eComponent implements Node {
 
