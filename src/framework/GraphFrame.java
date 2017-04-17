@@ -31,9 +31,9 @@ public class GraphFrame extends JFrame {
 		JMenuItem mNew = new JMenuItem("New");
 		JMenuItem mExit = new JMenuItem("Exit");
 		
-		mNew.setIcon(new ImageIcon("/Users/Dawidejdeholm/Documents/workspace/AOOP/src/images/new.gif"));
-		mSave.setIcon(new ImageIcon("/Users/Dawidejdeholm/Documents/workspace/AOOP/src/images/save.gif"));
-		mLoad.setIcon(new ImageIcon("/Users/Dawidejdeholm/Documents/workspace/AOOP/src/images/import.gif"));
+		mNew.setIcon(new ImageIcon("src/images/new.gif"));
+		mSave.setIcon(new ImageIcon("src/images/save.gif"));
+		mLoad.setIcon(new ImageIcon("src/images/import.gif"));
 		
 		menuBar.add(mnMenu);
 		mnMenu.add(mNew);
