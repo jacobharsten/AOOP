@@ -5,6 +5,8 @@ import java.awt.geom.*;
 
 import framework.*;
 
+
+// HÄR KOMMER MASSA KOMMENTARER
 public class eComponent implements Node {
 	
 	private double x;
