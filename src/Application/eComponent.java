@@ -1,8 +1,5 @@
 package Application;
 
-/*
-* JACOB E NUB
-*/
 import java.awt.*;
 import java.awt.geom.*;
 
@@ -63,8 +60,4 @@ public class eComponent implements Node {
 		// TODO Auto-generated method stub
 		return null;
 	}
-    
-    public void pung(){
-        System.out.printlN("PUNG)");
-    }
 }
