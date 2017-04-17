@@ -12,8 +12,11 @@ public class ToolBar extends JPanel {
 		tools = new ArrayList<Object>();
 
 		Node[] nodeTypes = graph.getNodePrototypes();
+		Edge[] edgeTypes = graph.getEdgePrototypes();
 		for (Node n : nodeTypes)
 			add(n);
+		for (Edge e : edgeTypes)
+			add(e);
 	}
 
 	public Object getSelectedTool() {
@@ -55,6 +58,33 @@ public class ToolBar extends JPanel {
 		group.add(button);
 		add(button);
 		tools.add(n);
+	}
+
+	public void add(final Edge e)
+	{
+		JToggleButton button = new JToggleButton(new
+				Icon()
+		{
+			public int getIconHeight() { return BUTTON_SIZE; }
+			public int getIconWidth() { return BUTTON_SIZE; }
+			public void paintIcon(Component c, Graphics g,
+					int x, int y)
+			{
+				Graphics2D g2 = (Graphics2D) g;
+				PointNode p = new PointNode();
+				p.translate(OFFSET, OFFSET);
+				PointNode q = new PointNode();
+				q.translate(BUTTON_SIZE - OFFSET, BUTTON_SIZE - OFFSET);
+				e.connect(p, q);
+				g2.translate(x, y);
+				g2.setColor(Color.black);
+				e.draw(g2);
+				g2.translate(-x, -y);
+			}
+		});
+		group.add(button);
+		add(button);
+		tools.add(e);
 	}
 
 	private ButtonGroup group;

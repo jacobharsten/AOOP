@@ -7,10 +7,14 @@ import framework.AbstractEdge;
 
 public class LineEdge extends AbstractEdge {
 	
+	public LineEdge() {
+		
+	}
+
 	public void draw(Graphics2D g2){
 		g2.draw(getConnectionPoints());
 	}
-	
+
 	public boolean contains(Point2D aPoint){
 		final double MAX_DIST = 2;
 		return getConnectionPoints().ptSegDist(aPoint) < MAX_DIST;
