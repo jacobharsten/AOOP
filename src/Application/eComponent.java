@@ -4,16 +4,23 @@ import java.awt.*;
 import java.awt.geom.*;
 
 import framework.*;
+
+
 //PUNGHUVUD
 
+/*
+ * Här är våran kompnetnentsn
+ */
+
+
 public class eComponent implements Node {
-	
+
 	private double x;
 	private double y;
 	private double size;
 	private Color color;
 	private static final int DEFAULT_SIZE = 20;
-	
+
 	public eComponent(Color aColor) {
 		size = DEFAULT_SIZE;
 		x = 0;
@@ -47,9 +54,9 @@ public class eComponent implements Node {
 		return new Rectangle2D.Double(x, y, size, size);
 	}
 
-	
-	
-	
+
+
+
 	@Override
 	public boolean contains(Point2D aPoint) {
 		// TODO Auto-generated method stub
