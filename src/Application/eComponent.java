@@ -5,14 +5,6 @@ import java.awt.geom.*;
 
 import framework.*;
 
-//OLLON
-//PUNGHUVUD
-
-/*
- * Här är våran kompnetnentsn
- */
-
-
 public class eComponent implements Node {
 
 	private double x;
