@@ -21,6 +21,27 @@ public class GraphFrame extends JFrame {
 		scrollPane = new JScrollPane(panel);
 		this.add(toolBar, BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnMenu = new JMenu("Menu");
+		JMenuItem mLoad = new JMenuItem("Load");
+		JMenuItem mSave = new JMenuItem("Save");
+		JMenuItem mNew = new JMenuItem("New");
+		JMenuItem mExit = new JMenuItem("Exit");
+		
+		mNew.setIcon(new ImageIcon("/Users/Dawidejdeholm/Documents/workspace/AOOP/src/images/new.gif"));
+		mSave.setIcon(new ImageIcon("/Users/Dawidejdeholm/Documents/workspace/AOOP/src/images/save.gif"));
+		mLoad.setIcon(new ImageIcon("/Users/Dawidejdeholm/Documents/workspace/AOOP/src/images/import.gif"));
+		
+		menuBar.add(mnMenu);
+		mnMenu.add(mNew);
+		mnMenu.addSeparator();
+		mnMenu.add(mSave);
+		mnMenu.add(mLoad);
+		mnMenu.addSeparator();
+		mnMenu.add(mExit);
 	}
 
 	private Graph graph;
