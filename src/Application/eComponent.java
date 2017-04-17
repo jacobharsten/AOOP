@@ -7,12 +7,6 @@ import framework.*;
 
 public class eComponent implements Node {
 
-<<<<<<< HEAD
-    private int KINGEN;
-=======
-	// FITTHUVUD DAWID
-	
->>>>>>> 25dd20388b4b978d2e3cbcf823388f918ad5b7bb
 	private double x;
 	private double y;
 	private double size;
