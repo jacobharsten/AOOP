@@ -7,6 +7,7 @@ import framework.*;
 
 public class eComponent implements Node {
 
+    private int KINGEN;
 	private double x;
 	private double y;
 	private double size;
