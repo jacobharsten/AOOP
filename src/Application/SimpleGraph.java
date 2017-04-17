@@ -12,7 +12,7 @@ public class SimpleGraph extends Graph {
 
 	@Override
 	public Edge[] getEdgePrototypes() {
-		Edge[] edgeTypes = { new LineEdge(), new LineEdge() };
+		Edge[] edgeTypes = { new LineEdge() };
 		return edgeTypes;
 	}
 }
