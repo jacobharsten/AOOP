@@ -43,6 +43,9 @@ public class Gates implements Node {
 	public String toString() {
 		return "[Color: " + this.color.toString();
 	}
+	public int getRows(){
+		return rows;
+	}
 
 	public Object clone() {
 		try {
@@ -99,12 +102,13 @@ public class Gates implements Node {
 
 	@Override
 	public Point2D getConnectionPoint(Point2D aPoint) {
-		double centerX = x + (rWidth / 2);
-		double centerY = y + (rHeight / 2);
-		double dx = aPoint.getX() - centerX;
-		double dy = aPoint.getY() - centerY;
-		double distance = Math.sqrt(dx * dx + dy * dy);
-		if(distance == 0) return aPoint;
-		else return new Point2D.Double(getBounds().getMinX()-10, getBounds().getCenterY());
+		double x1 = getBounds().getMaxX();
+		double x2 = aPoint.getX();
+		if(x1 < x2){
+			return new Point2D.Double(getBounds().getMaxX()+10, getBounds().getCenterY());
+		}
+		else {
+			return new Point2D.Double(getBounds().getMinX()-10, getBounds().getCenterY());
+		}
 	}
 }
