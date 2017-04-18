@@ -15,6 +15,7 @@ public class Gates implements Node {
 	private int rHeight = 20;
 	private int rWidth = 50;
 	private int rows;
+	private int connected;
 
 	public Gates(Color aColor, int mRows) {
 		if(mRows > 8){
@@ -25,13 +26,14 @@ public class Gates implements Node {
 		rHeight = adjustHeight(mRows);
 		x = 0;
 		y = 0;
+		connected = 0;
 		color = aColor;
 	}
-	
+
 	public int adjustHeight(int r){
 		int result = 0;
 		if(r < 2){
-		result = 20 * r;
+			result = 20 * r;
 		}
 		else {
 			result = 24 * r;
@@ -62,7 +64,7 @@ public class Gates implements Node {
 			g2.setColor(Color.BLACK);
 			g2.fill(circle);
 			g2.draw(circle);
-			
+
 			Ellipse2D circleInside = new Ellipse2D.Double(x-13.5, y+6.25+25*i, 7, 7);
 			g2.setColor(Color.GREEN);
 			g2.fill(circleInside);
@@ -72,7 +74,7 @@ public class Gates implements Node {
 			g2.setColor(Color.BLACK);
 			g2.fill(circle2);
 			g2.draw(circle2);
-			
+
 			Ellipse2D circleInside2 = new Ellipse2D.Double(x+6.5+rWidth, y+6.25+25*i, 7, 7);
 			g2.setColor(Color.GREEN);
 			g2.fill(circleInside2);
@@ -97,10 +99,12 @@ public class Gates implements Node {
 
 	@Override
 	public Point2D getConnectionPoint(Point2D aPoint) {
-		double dx = aPoint.getX() + rWidth/2 + 10;
-		double dy = aPoint.getY();
-		return new Point2D.Double(dx, dy);
-		
-		
+		double centerX = x + (rWidth / 2);
+		double centerY = y + (rHeight / 2);
+		double dx = aPoint.getX() - centerX;
+		double dy = aPoint.getY() - centerY;
+		double distance = Math.sqrt(dx * dx + dy * dy);
+		if(distance == 0) return aPoint;
+		else return new Point2D.Double(getBounds().getMinX()-10, getBounds().getCenterY());
 	}
 }
