@@ -146,6 +146,6 @@ public class GraphFrame extends JFrame {
 	private JScrollPane scrollPane;
 	private ToolBar toolBar;
 
-	public static final int FRAME_WIDTH = 600;
-	public static final int FRAME_HEIGHT = 400;
+	public static final int FRAME_WIDTH = 800;
+	public static final int FRAME_HEIGHT = 650;
 }

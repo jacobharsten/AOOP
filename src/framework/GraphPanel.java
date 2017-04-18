@@ -31,7 +31,7 @@ public class GraphPanel extends JComponent {
 						selected = null;
 					}
 				}
-				else if(tool instanceof Node){
+				else if(tool instanceof Node && event.getButton() != MouseEvent.BUTTON3){
 					Node prototype = (Node) tool;
 					Node newNode = (Node) prototype.clone();
 					boolean added = graph.add(newNode, mousePoint);
@@ -48,6 +48,35 @@ public class GraphPanel extends JComponent {
 				}
 				else if(tool instanceof Edge){
 					if(n != null) rubberBandStart = mousePoint;
+				}
+				/*
+				 * Gör någon cool meny om man högerklickar
+				 */
+				if(event.getButton() == MouseEvent.BUTTON3){
+					JPopupMenu pop = new JPopupMenu();
+					JMenuItem pDelete = new JMenuItem("Delete");
+					pDelete.setIcon(new ImageIcon("src/images/delete.gif"));
+					pop.add(pDelete);
+					pDelete.addActionListener(new
+							ActionListener()
+					{
+						public void actionPerformed(ActionEvent event)
+						{
+							deleteSelected();
+						}
+					});
+					JMenuItem pEdit = new JMenuItem("Edit");
+					pop.addSeparator();
+					pop.add(pEdit);
+					pEdit.addActionListener(new
+							ActionListener()
+					{
+						public void actionPerformed(ActionEvent event)
+						{
+							System.out.println("om vi ska ädnra nåtngin");
+						}
+					});
+					pop.show(GraphPanel.this, event.getX(), event.getY());
 				}
 				lastMousePoint = mousePoint;
 				repaint();
@@ -89,32 +118,44 @@ public class GraphPanel extends JComponent {
 
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		Rectangle2D bounds = getBounds();
-		Rectangle2D graphBounds = graph.getBounds(g2);
 		graph.draw(g2);
-		
-		if(selected instanceof Edge){
-			Line2D line = ((Edge) selected).getConnectionPoints();
-			drawGrabber(g2, line.getX1(), line.getY1());
-			drawGrabber(g2, line.getX2(), line.getY2());
-		}
-		if(selected instanceof Edge){
-			Line2D line = ((Edge) selected).getConnectionPoints();
-			drawGrabber(g2, line.getX1(), line.getY1());
-			drawGrabber(g2, line.getX2(), line.getY2());
-		}
 		if(rubberBandStart != null){
-			g2.setColor(Color.RED);
+			Color oldColor = g2.getColor();
+			g2.setColor(new Color(0, 205, 0));
+			g2.setStroke(new BasicStroke(1));
 			g2.draw(new Line2D.Double(rubberBandStart, lastMousePoint));
+			g2.setColor(oldColor);
+		}
+		if(selected instanceof Node){
+			Rectangle2D grabberBounds = ((Node) selected).getBounds();
+			drawGrabber(g2, grabberBounds.getMinX(), grabberBounds.getMinY());
+			drawGrabber(g2, grabberBounds.getMinX(), grabberBounds.getMaxY());
+			drawGrabber(g2, grabberBounds.getMaxX(), grabberBounds.getMinY());
+			drawGrabber(g2, grabberBounds.getMaxX(), grabberBounds.getMaxY());
+		}
+		if(selected instanceof Edge){
+			Line2D line = ((Edge) selected).getConnectionPoints();
+			drawGrabber(g2, line.getX1(), line.getY1());
+			drawGrabber(g2, line.getX2(), line.getY2());
 		}
 	}
 
 	public static void drawGrabber(Graphics2D g2, double x, double y){
+		g2.setColor(new Color(50, 0, 0));
 		g2.fill(new Rectangle2D.Double(x-5/2, y-5/2, 5, 5));
-		g2.setColor(Color.RED);
-
 	}
-
+	public void deleteSelected(){
+		if(selected instanceof Node){
+			graph.removeNode((Node)selected);
+		}
+		else if (selected instanceof Edge){
+			graph.removeEdge((Edge)selected);
+		}
+		selected = null;
+		repaint();
+		
+	}
+	private JPopupMenu popup;
 	private Graph graph;
 	private ToolBar toolBar;
 	private Object selected;

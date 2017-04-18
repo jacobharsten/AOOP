@@ -20,18 +20,6 @@ public abstract class AbstractEdge implements Edge {
 	}
 
 	@Override
-	public void draw(Graphics2D g2) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean contains(Point2D aPoint) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public void connect(Node aStart, Node anEnd) {
 		start = aStart;
 		end = anEnd;

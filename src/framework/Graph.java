@@ -27,7 +27,7 @@ public abstract class Graph implements Serializable {
 	}
 
 	public Node findNode(Point2D p){
-		for(int i = 0; i<nodes.size()-1; i++ ){
+		for(int i = 0; i<nodes.size(); i++ ){
 			Node n = nodes.get(i);
 			if(n.contains(p)){
 				return n;
@@ -35,8 +35,9 @@ public abstract class Graph implements Serializable {
 		}
 		return null;
 	}
+	
 	public Edge findEdge(Point2D p){
-		for(int i = 0; i<edges.size()-1; i++ ){
+		for(int i = 0; i<edges.size(); i++ ){
 			Edge n = edges.get(i);
 			if(n.contains(p)){
 				return n;
@@ -49,12 +50,12 @@ public abstract class Graph implements Serializable {
 	public void draw(Graphics2D g2) {
 		for (Node n : nodes)
 			n.draw(g2);
-		for(Edge e : edges)
+		for (Edge e : edges)
 			e.draw(g2);
 	}
 
 	public void removeNode(Node n){
-		for(int i = 0; i<edges.size()-1; i++ ){
+		for(int i = edges.size()-1; i >=0; i-- ){
 			Edge e = edges.get(i);
 			if(e.getStart() == n || e.getEnd() == n){
 				edges.remove(e);
@@ -85,7 +86,7 @@ public abstract class Graph implements Serializable {
 		Node n1 = findNode(p1);
 		Node n2 = findNode(p2);
 
-		if(n1 != null && n1 != null){
+		if(n1 != null && n2 != null){
 			e.connect(n1, n2);
 			edges.add(e);
 			return true;

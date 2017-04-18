@@ -10,6 +10,13 @@ public class ToolBar extends JPanel {
 	public ToolBar(Graph graph) {
 		group = new ButtonGroup();
 		tools = new ArrayList<Object>();
+		
+		JToggleButton editor = new JToggleButton();
+		editor.setIcon(new ImageIcon("src/images/edit.gif"));
+		group.add(editor);
+		add(editor);
+		editor.setSelected(true);
+		tools.add(null);
 
 		Node[] nodeTypes = graph.getNodePrototypes();
 		Edge[] edgeTypes = graph.getEdgePrototypes();
@@ -18,7 +25,6 @@ public class ToolBar extends JPanel {
 		for (Edge e : edgeTypes)
 			add(e);
 	}
-
 	public Object getSelectedTool() {
 		int i = 0;
 		for (Object o : tools) {
