@@ -49,9 +49,6 @@ public class GraphPanel extends JComponent {
 				else if(tool instanceof Edge){
 					if(n != null) rubberBandStart = mousePoint;
 				}
-				/*
-				 * Gör någon cool meny om man högerklickar
-				 */
 				if(event.getButton() == MouseEvent.BUTTON3){
 					JPopupMenu pop = new JPopupMenu();
 					JMenuItem pDelete = new JMenuItem("Delete");
