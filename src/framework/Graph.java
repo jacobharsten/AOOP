@@ -7,10 +7,10 @@ import java.util.*;
 import java.util.List;
 
 public abstract class Graph implements Serializable {
-	
+
 	private ArrayList<Node> nodes;
 	private ArrayList<Edge> edges;
-	
+
 	public abstract Node[] getNodePrototypes();
 	public abstract Edge[] getEdgePrototypes();
 
@@ -19,10 +19,11 @@ public abstract class Graph implements Serializable {
 		edges = new ArrayList<Edge>();
 	}
 
-	public void add(Node n, Point2D p) {
+	public boolean add(Node n, Point2D p) {
 		Rectangle2D bounds = n.getBounds();
 		n.translate(p.getX() - bounds.getX(), p.getY() - bounds.getY());
 		nodes.add(n);
+		return true;
 	}
 
 	public Node findNode(Point2D p){
@@ -43,15 +44,15 @@ public abstract class Graph implements Serializable {
 		}
 		return null;
 	}
-	
-	
+
+
 	public void draw(Graphics2D g2) {
 		for (Node n : nodes)
 			n.draw(g2);
 		for(Edge e : edges)
 			e.draw(g2);
 	}
-	
+
 	public void removeNode(Node n){
 		for(int i = 0; i<edges.size()-1; i++ ){
 			Edge e = edges.get(i);
@@ -61,14 +62,14 @@ public abstract class Graph implements Serializable {
 		}
 		nodes.remove(n);
 	}
-	
+
 	public void removeEdge(Edge n){
 		edges.remove(n);
 	}
-	
+
 	public Rectangle2D getBounds(Graphics2D g2){
 		Rectangle2D r = null;
-		
+
 		for(Node n : nodes){
 			Rectangle2D b = n.getBounds();
 			if(r == null) r = b;
@@ -79,10 +80,11 @@ public abstract class Graph implements Serializable {
 		}
 		return r == null ? new Rectangle2D.Double() : r;
 	}
+
 	public boolean connect(Edge e, Point2D p1, Point2D p2){
 		Node n1 = findNode(p1);
 		Node n2 = findNode(p2);
-		
+
 		if(n1 != null && n1 != null){
 			e.connect(n1, n2);
 			edges.add(e);
@@ -91,7 +93,7 @@ public abstract class Graph implements Serializable {
 		return false;
 	}
 
-	
+
 
 	public List<Node> getNodes() {
 		return Collections.unmodifiableList(nodes);
@@ -100,6 +102,6 @@ public abstract class Graph implements Serializable {
 		return Collections.unmodifiableList(edges);
 	}
 
-	
+
 
 }

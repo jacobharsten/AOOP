@@ -46,18 +46,20 @@ public class eComponent implements Node {
 		return new Rectangle2D.Double(x, y, size, size);
 	}
 
-
-
-
 	@Override
 	public boolean contains(Point2D aPoint) {
-		// TODO Auto-generated method stub
-		return false;
+		Rectangle2D square = new Rectangle2D.Double(x, y, size, size);
+		return square.contains(aPoint);
 	}
 
 	@Override
 	public Point2D getConnectionPoint(Point2D aPoint) {
-		// TODO Auto-generated method stub
-		return null;
+		double centerX = x + (size / 2);
+		double centerY = y + (size / 2);
+		double dx = aPoint.getX() - centerX;
+		double dy = aPoint.getY() - centerY;
+		double distance = Math.sqrt(dx * dx + dy * dy);
+		if(distance == 0) return aPoint;
+		else return new Point2D.Double(centerX + dx * (size / 2) / distance, centerY + dy * (size / 2) / distance);
 	}
 }
