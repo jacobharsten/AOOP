@@ -12,8 +12,8 @@ public class CircleComponent implements Node {
 	private double size;
 	private Color color;
 	private static final int DEFAULT_SIZE = 70;
-	private static final int rHeight = 12;
-	private static final int rWidth = 12;
+	private static final int rHeight = 5;
+	private static final int rWidth = 5;
 
 	public CircleComponent(Color aColor) {
 		size = DEFAULT_SIZE;
@@ -39,8 +39,8 @@ public class CircleComponent implements Node {
 		Color oldColor = g2.getColor();
 		g2.setColor(color);
 		g2.fill(square);
-		g2.setStroke(new BasicStroke(2));
-		g2.setColor(Color.BLUE);
+		//g2.setStroke(new BasicStroke(2));
+		//g2.setColor(Color.BLUE);
 		g2.draw(square);
 		
 	}

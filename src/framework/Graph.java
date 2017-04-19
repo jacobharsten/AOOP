@@ -94,15 +94,10 @@ public abstract class Graph implements Serializable {
 		return false;
 	}
 
-
-
 	public List<Node> getNodes() {
 		return Collections.unmodifiableList(nodes);
 	}
 	public List<Edge> getEdges() {
 		return Collections.unmodifiableList(edges);
 	}
-
-
-
 }

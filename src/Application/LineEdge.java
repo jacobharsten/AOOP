@@ -10,14 +10,16 @@ import framework.AbstractEdge;
 public class LineEdge extends AbstractEdge {
 	
 	private Color c;
+	private int strokeSize;
 	
-	public LineEdge(Color col) {
+	public LineEdge(Color col, int size) {
 		c = col;
+		strokeSize = size;
 	}
 
 	public void draw(Graphics2D g2){
 		g2.setColor(c);
-		g2.setStroke(new BasicStroke(1));
+		g2.setStroke(new BasicStroke(strokeSize));
 		g2.draw(getConnectionPoints());
 	}
 
