@@ -36,10 +36,9 @@ public class eComponent implements Node {
 
 	public void draw(Graphics2D g2) {
 		Rectangle2D square = new Rectangle2D.Double(x, y, rWidth, rHeight);
-		Color oldColor = g2.getColor();
+		//g2.fill(square);
+		g2.setStroke(new BasicStroke(4));
 		g2.setColor(color);
-		g2.fill(square);
-		g2.setColor(oldColor);
 		g2.draw(square);
 	}
 

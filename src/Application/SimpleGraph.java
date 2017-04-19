@@ -6,13 +6,13 @@ import framework.*;
 
 public class SimpleGraph extends Graph {
 	public Node[] getNodePrototypes() {
-		Node[] nodeTypes = { new Gates(Color.GREEN, 1), new Gates(Color.RED, 5), new Gates(Color.BLUE, 6), new Gates(Color.PINK, 12) };
+		Node[] nodeTypes = { new CircleComponent(Color.GREEN), new CircleComponent(Color.RED), new Gates(Color.BLUE, 1), new Gates(Color.PINK, 3) };
 		return nodeTypes;
 	}
 
 	@Override
 	public Edge[] getEdgePrototypes() {
-		Edge[] edgeTypes = { new LineEdge() };
+		Edge[] edgeTypes = { new LineEdge(new Color(0,200,0)), new LineEdge(Color.RED) };
 		return edgeTypes;
 	}
 }

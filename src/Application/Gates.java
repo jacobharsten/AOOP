@@ -58,30 +58,26 @@ public class Gates implements Node {
 	public void draw(Graphics2D g2) {
 		Rectangle2D square = new Rectangle2D.Double(x, y, rWidth, rHeight);
 		Color oldColor = g2.getColor();
-		g2.setColor(color);
-		g2.fill(square);
+		g2.setColor(Color.YELLOW);
+		g2.setStroke(new BasicStroke(4));
+	//	g2.fill(square);
 		g2.draw(square);
 		g2.setColor(oldColor);
 		for(int i = 0; i<rows; i++){
 			Ellipse2D circle = new Ellipse2D.Double(x-15, y+5+25*i, 10, 10);
-			g2.setColor(Color.BLACK);
+			g2.setColor(Color.YELLOW);
 			g2.fill(circle);
+			g2.setStroke(new BasicStroke(2));
+			g2.setColor(Color.RED);
 			g2.draw(circle);
 
-			Ellipse2D circleInside = new Ellipse2D.Double(x-13.5, y+6.25+25*i, 7, 7);
-			g2.setColor(Color.GREEN);
-			g2.fill(circleInside);
-			g2.draw(circleInside);
-
 			Ellipse2D circle2 = new Ellipse2D.Double(x+5+rWidth, y+5+25*i, 10, 10);
-			g2.setColor(Color.BLACK);
+			g2.setColor(Color.YELLOW);
 			g2.fill(circle2);
+			g2.setColor(Color.RED);
+			g2.setStroke(new BasicStroke(2));
 			g2.draw(circle2);
 
-			Ellipse2D circleInside2 = new Ellipse2D.Double(x+6.5+rWidth, y+6.25+25*i, 7, 7);
-			g2.setColor(Color.GREEN);
-			g2.fill(circleInside2);
-			g2.draw(circleInside2);
 		}
 	}
 

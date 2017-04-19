@@ -10,7 +10,7 @@ public class GraphPanel extends JComponent {
 	public GraphPanel(ToolBar aToolBar, Graph aGraph) {
 		toolBar = aToolBar;
 		graph = aGraph;
-		setBackground(Color.WHITE);
+		setBackground(Color.BLACK);
 
 		addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent event) {

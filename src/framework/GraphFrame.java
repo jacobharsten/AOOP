@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,14 +21,14 @@ public class GraphFrame extends JFrame {
 	public GraphFrame(final Graph graph) {
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		setResizable(false);
+		setResizable(true);
 
 		this.graph = graph;
 
 		toolBar = new ToolBar(graph);
 		panel = new GraphPanel(toolBar, graph);
 		scrollPane = new JScrollPane(panel);
+		scrollPane.getViewport().setBackground(Color.BLACK);
 		this.add(toolBar, BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
 
@@ -78,7 +79,7 @@ public class GraphFrame extends JFrame {
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				System.out.println("Newfunktion här.");
+				newFile();
 			}
 		});
 
@@ -89,6 +90,36 @@ public class GraphFrame extends JFrame {
 		mnMenu.add(mLoad);
 		mnMenu.addSeparator();
 		mnMenu.add(mExit);
+	}
+
+	private void newFile(){
+		try
+		{
+			File file = new File("src/data/empty");
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+			graph = (Graph) in.readObject();
+			in.close();
+			this.remove(scrollPane);
+			this.remove(toolBar);
+			toolBar = new ToolBar(graph);
+			panel = new GraphPanel(toolBar, graph);
+			scrollPane = new JScrollPane(panel);
+			scrollPane.getViewport().setBackground(Color.BLACK);
+			this.add(toolBar, BorderLayout.NORTH);
+			this.add(scrollPane, BorderLayout.CENTER);
+			validate();
+			repaint();
+		}
+		catch (IOException exception)
+		{
+			JOptionPane.showMessageDialog(null,
+					exception);
+		}
+		catch (ClassNotFoundException exception)
+		{
+			JOptionPane.showMessageDialog(null,
+					exception);
+		}
 	}
 
 	private void saveFile(){
@@ -123,6 +154,7 @@ public class GraphFrame extends JFrame {
 				toolBar = new ToolBar(graph);
 				panel = new GraphPanel(toolBar, graph);
 				scrollPane = new JScrollPane(panel);
+				scrollPane.getViewport().setBackground(Color.BLACK);
 				this.add(toolBar, BorderLayout.NORTH);
 				this.add(scrollPane, BorderLayout.CENTER);
 				validate();
@@ -140,6 +172,7 @@ public class GraphFrame extends JFrame {
 			}
 		}
 	}
+
 
 	private Graph graph;
 	private GraphPanel panel;
