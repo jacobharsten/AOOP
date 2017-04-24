@@ -11,19 +11,23 @@ public class CircleComponent implements Node {
 	private double y;
 	private double size;
 	private Color color;
+	private boolean dot_inside;
 	private static final int DEFAULT_SIZE = 70;
-	private static final int rHeight = 5;
-	private static final int rWidth = 5;
+	private int rHeight = 5;
+	private int rWidth = 5;
 
-	public CircleComponent(Color aColor) {
+	public CircleComponent(Color aColor, int width, int height, boolean dot) {
 		size = DEFAULT_SIZE;
+		rWidth = width;
+		rHeight = height;
+		dot_inside = dot;
 		x = 0;
 		y = 0;
 		color = aColor;
 	}
 	
 	public String toString() {
-		return "[Color: " + this.color.toString();
+		return "connect";
 	}
 
 	public Object clone() {
@@ -39,10 +43,12 @@ public class CircleComponent implements Node {
 		Color oldColor = g2.getColor();
 		g2.setColor(color);
 		g2.fill(square);
-		//g2.setStroke(new BasicStroke(2));
-		//g2.setColor(Color.BLUE);
+		if(dot_inside){
+			g2.setStroke(new BasicStroke(2));
+			g2.setColor(Color.GREEN);
+		}
 		g2.draw(square);
-		
+
 	}
 
 	public void translate(double dx, double dy) {

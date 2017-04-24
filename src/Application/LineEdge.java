@@ -24,7 +24,7 @@ public class LineEdge extends AbstractEdge {
 	}
 
 	public boolean contains(Point2D aPoint){
-		final double MAX_DIST = 2;
+		final double MAX_DIST = 1;
 		return getConnectionPoints().ptSegDist(aPoint) < MAX_DIST;
 	}
 }

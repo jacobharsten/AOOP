@@ -21,16 +21,13 @@ public class GraphFrame extends JFrame {
 	public GraphFrame(final Graph graph) {
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(true);
+		setResizable(false);
+		
+		bg_color = new Color(30,30,30);
 
 		this.graph = graph;
 
-		toolBar = new ToolBar(graph);
-		panel = new GraphPanel(toolBar, graph);
-		scrollPane = new JScrollPane(panel);
-		scrollPane.getViewport().setBackground(Color.BLACK);
-		this.add(toolBar, BorderLayout.NORTH);
-		this.add(scrollPane, BorderLayout.CENTER);
+		graph_bars();
 
 		/*
 		 * MENUBAR
@@ -101,12 +98,7 @@ public class GraphFrame extends JFrame {
 			in.close();
 			this.remove(scrollPane);
 			this.remove(toolBar);
-			toolBar = new ToolBar(graph);
-			panel = new GraphPanel(toolBar, graph);
-			scrollPane = new JScrollPane(panel);
-			scrollPane.getViewport().setBackground(Color.BLACK);
-			this.add(toolBar, BorderLayout.NORTH);
-			this.add(scrollPane, BorderLayout.CENTER);
+			graph_bars();
 			validate();
 			repaint();
 		}
@@ -151,12 +143,7 @@ public class GraphFrame extends JFrame {
 				in.close();
 				this.remove(scrollPane);
 				this.remove(toolBar);
-				toolBar = new ToolBar(graph);
-				panel = new GraphPanel(toolBar, graph);
-				scrollPane = new JScrollPane(panel);
-				scrollPane.getViewport().setBackground(Color.BLACK);
-				this.add(toolBar, BorderLayout.NORTH);
-				this.add(scrollPane, BorderLayout.CENTER);
+				graph_bars();
 				validate();
 				repaint();
 			}
@@ -172,12 +159,29 @@ public class GraphFrame extends JFrame {
 			}
 		}
 	}
+	
+	
+	public void graph_bars(){
+		toolBar = new ToolBar(graph);
+		panel = new GraphPanel(toolBar, graph);
+		scrollPane = new JScrollPane(panel);
+		scrollPane.getViewport().setBackground(bg_color);
+		this.add(toolBar, BorderLayout.SOUTH);
+		this.add(scrollPane, BorderLayout.CENTER);
+	}
+	public int getWidth(){
+		return FRAME_WIDTH;
+	}
+	public int getHeight(){
+		return FRAME_HEIGHT;
+	}
 
 
 	private Graph graph;
 	private GraphPanel panel;
 	private JScrollPane scrollPane;
 	private ToolBar toolBar;
+	private Color bg_color;
 
 	public static final int FRAME_WIDTH = 800;
 	public static final int FRAME_HEIGHT = 650;

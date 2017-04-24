@@ -36,8 +36,8 @@ public class ResistorComp implements Node {
 	public void draw(Graphics2D g2) {
 		Rectangle2D square = new Rectangle2D.Double(x, y, rWidth, rHeight);
 		Color oldColor = g2.getColor();
-		g2.drawString("Resistor", (int)square.getMinX(), (int)square.getMinY()-2);
 		g2.setColor(Color.GRAY);
+		g2.drawString("R", (int)square.getMinX(), (int)square.getMinY()-2);
 		g2.setStroke(new BasicStroke(2));
 		g2.draw(square);
 		g2.setColor(oldColor);

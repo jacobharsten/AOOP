@@ -5,6 +5,8 @@ import java.awt.geom.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import Application.Colors;
+
 public class GraphPanel extends JComponent {
 
 	public GraphPanel(ToolBar aToolBar, Graph aGraph) {
@@ -93,11 +95,15 @@ public class GraphPanel extends JComponent {
 				lastMousePoint = null;
 				dragStartBounds = null;
 				rubberBandStart = null;
+				mouse_follow = false;
 			}
 		});
 
 		addMouseMotionListener(new MouseMotionAdapter(){
 			public void mouseDragged(MouseEvent event){
+				mouse_follow = true;
+				mouse_x = event.getX();
+				mouse_y = event.getY();
 				Point2D mousePoint = event.getPoint();
 				if(dragStartBounds != null){
 					if(selected instanceof Node){
@@ -105,7 +111,9 @@ public class GraphPanel extends JComponent {
 						Rectangle2D bounds = n.getBounds();
 						n.translate(dragStartBounds.getX() - bounds.getX() + mousePoint.getX() - dragStartPoint.getX(),
 								dragStartBounds.getY() - bounds.getY() + mousePoint.getY() - dragStartPoint.getY());
+						
 					}
+					
 				}
 				lastMousePoint = mousePoint;
 				repaint();
@@ -118,29 +126,58 @@ public class GraphPanel extends JComponent {
 		graph.draw(g2);
 		if(rubberBandStart != null){
 			Color oldColor = g2.getColor();
-			g2.setColor(new Color(0, 205, 0));
+			Line2D line = new Line2D.Double(rubberBandStart, lastMousePoint);
+			g2.setColor(Colors.DARKGREEN.getColor());
 			g2.setStroke(new BasicStroke(1));
-			g2.draw(new Line2D.Double(rubberBandStart, lastMousePoint));
+			g2.draw(line);
 			g2.setColor(oldColor);
+			drawCoord(g2, lastMousePoint.getX(), lastMousePoint.getY());
 		}
 		if(selected instanceof Node){
 			Rectangle2D grabberBounds = ((Node) selected).getBounds();
-			drawGrabber(g2, grabberBounds.getMinX(), grabberBounds.getMinY());
-			drawGrabber(g2, grabberBounds.getMinX(), grabberBounds.getMaxY());
-			drawGrabber(g2, grabberBounds.getMaxX(), grabberBounds.getMinY());
-			drawGrabber(g2, grabberBounds.getMaxX(), grabberBounds.getMaxY());
+			drawGrabber(g2, grabberBounds.getMinX()-2, grabberBounds.getMinY()-2);
+			drawGrabber(g2, grabberBounds.getMinX()-2, grabberBounds.getMaxY()+2);
+			drawGrabber(g2, grabberBounds.getMaxX()+2, grabberBounds.getMinY()-2);
+			drawGrabber(g2, grabberBounds.getMaxX()+2,grabberBounds.getMaxY()+2);
+			if(rubberBandStart == null){
+				drawCoord(g2, grabberBounds.getCenterX(), grabberBounds.getCenterY());
+			}
 		}
 		if(selected instanceof Edge){
 			Line2D line = ((Edge) selected).getConnectionPoints();
 			drawGrabber(g2, line.getX1(), line.getY1());
 			drawGrabber(g2, line.getX2(), line.getY2());
+			if(rubberBandStart == null){
+				drawCoord(g2, line.getX2(), line.getY2());
+			}
 		}
 	}
 
+	public boolean check_inter(Point2D start_point, Point2D end_point){
+		Line2D existing_line;
+		Line2D inter_line = new Line2D.Double(start_point, end_point);
+		for(Edge e : graph.getEdges()){
+			existing_line = e.getConnectionPoints();
+			if(inter_line.intersectsLine(existing_line)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 	public static void drawGrabber(Graphics2D g2, double x, double y){
-		g2.setColor(new Color(50, 0, 0));
+		g2.setColor(new Color(225, 0, 0));
 		g2.fill(new Rectangle2D.Double(x-5/2, y-5/2, 5, 5));
 	}
+
+	public void drawCoord(Graphics2D g2, double x, double y){
+		if(mouse_follow){
+			g2.setColor(new Color(225, 0, 0));
+			g2.drawString("[X: " + (int)x + " Y: " + (int)y + "]", mouse_x, mouse_y);
+		}
+	}
+
 	public void deleteSelected(){
 		if(selected instanceof Node){
 			graph.removeNode((Node)selected);
@@ -150,12 +187,16 @@ public class GraphPanel extends JComponent {
 		}
 		selected = null;
 		repaint();
-		
+
 	}
 	private JPopupMenu popup;
 	private Graph graph;
 	private ToolBar toolBar;
 	private Object selected;
+
+	private int mouse_x;
+	private int mouse_y;
+	private boolean mouse_follow;
 
 	private Point2D lastMousePoint;
 	private Point2D rubberBandStart;
