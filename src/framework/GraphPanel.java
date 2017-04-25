@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import Application.Colors;
 
@@ -65,6 +67,7 @@ public class GraphPanel extends JComponent {
 						}
 					});
 					JMenuItem pEdit = new JMenuItem("Edit");
+					pEdit.setIcon(new ImageIcon("src/images/edit_object.gif"));
 					pop.addSeparator();
 					pop.add(pEdit);
 					pEdit.addActionListener(new
@@ -72,7 +75,7 @@ public class GraphPanel extends JComponent {
 					{
 						public void actionPerformed(ActionEvent event)
 						{
-							System.out.println("om vi ska ädnra nåtngin");
+							editSelected();
 						}
 					});
 					pop.show(GraphPanel.this, event.getX(), event.getY());
@@ -111,9 +114,9 @@ public class GraphPanel extends JComponent {
 						Rectangle2D bounds = n.getBounds();
 						n.translate(dragStartBounds.getX() - bounds.getX() + mousePoint.getX() - dragStartPoint.getX(),
 								dragStartBounds.getY() - bounds.getY() + mousePoint.getY() - dragStartPoint.getY());
-						
+
 					}
-					
+
 				}
 				lastMousePoint = mousePoint;
 				repaint();
@@ -187,8 +190,28 @@ public class GraphPanel extends JComponent {
 		}
 		selected = null;
 		repaint();
-
 	}
+
+	public void editSelected()
+	{
+		if(selected != null){
+			PropertySheet sheet = new PropertySheet(selected);
+			sheet.addChangeListener(new
+					ChangeListener()
+			{
+				public void stateChanged(ChangeEvent event)
+				{
+					repaint();
+				}
+			});
+			JOptionPane.showMessageDialog(null, 
+					sheet, 
+					"Properties", 
+					JOptionPane.PLAIN_MESSAGE);        
+		}
+	}
+
+
 	private JPopupMenu popup;
 	private Graph graph;
 	private ToolBar toolBar;

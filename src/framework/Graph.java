@@ -6,15 +6,16 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 import Application.CircleComponent;
+import Application.Colors;
 
 public abstract class Graph implements Serializable {
 
 	private ArrayList<Node> nodes;
 	private ArrayList<Edge> edges;
-	private int board_width = 650;
+	private int board_width = 660;
 	private int board_height = 400;
 
 	public abstract Node[] getNodePrototypes();
@@ -149,7 +150,7 @@ public abstract class Graph implements Serializable {
 			return true;
 		}
 		if(n1 != null && n2 == null && !check_inter(p1, p2)){
-			Node newNode = new CircleComponent(new Color(34,139,34), 5, 5, false);
+			Node newNode = new CircleComponent(Colors.NAVYGREEN.getColor(), 5, 5, false);
 			this.add(newNode, p2);
 			e.connect(n1, newNode);
 			edges.add(e);

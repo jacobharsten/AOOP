@@ -14,10 +14,10 @@ public class ChipIcon implements Node {
 	private int rHeight = 20;
 	private int rWidth = 50;
 	private int rows;
-
-	private boolean[] active_r_color;
-	private boolean[] active_l_color;
-
+	private String name;
+	private Color border_color;
+	private Color circle_inside;
+	private Color circle_border;
 
 	public ChipIcon(int mRows) {
 		if(mRows > 4){
@@ -28,7 +28,14 @@ public class ChipIcon implements Node {
 		rHeight = adjustHeight(mRows);
 		x = 0;
 		y = 0;
+
+		border_color = Colors.DARKGREEN.getColor();
+		circle_inside = Color.BLACK;
+		circle_border = Colors.GREEN.getColor();
+
+		name = "";
 	}
+
 
 	public int adjustHeight(int r){
 		int result = 0;
@@ -46,6 +53,54 @@ public class ChipIcon implements Node {
 	public int getRows(){
 		return rows;
 	}
+	public void setRows(int newRows){
+		if(newRows > 4){
+			newRows = 3;
+		}
+		rows = newRows;
+		rHeight = adjustHeight(rows);
+	}
+	public String getName(){
+		return name;
+	}
+	public void setName(String n){
+		name = n;
+	}
+
+	public Color getBorderColor(){
+		return border_color;
+	}
+	public void setBorderColor(Color new_color){
+		border_color = new_color;
+	}
+	public Color getCircleColor(){
+		return circle_inside;
+	}
+	public void setCircleColor(Color new_color){
+		circle_inside = new_color;
+	}
+
+	public Color getCircleBorderColor(){
+		return circle_border;
+	}
+	public void setCircleBorderColor(Color new_color){
+		circle_border = new_color;
+	}
+
+	public double getX(){
+		return x;
+	}
+	public void setX(double newX){
+		x = newX;
+	}
+
+	public double getY(){
+		return y;
+	}
+	public void setY(double newY){
+		y = newY;
+	}
+
 
 	public Object clone() {
 		try {
@@ -58,22 +113,24 @@ public class ChipIcon implements Node {
 	public void draw(Graphics2D g2) {
 		Rectangle2D square = new Rectangle2D.Double(x, y, rWidth, rHeight);
 		Color oldColor = g2.getColor();
-		g2.setColor(Colors.DARKGREEN.getColor());
+		g2.setColor(border_color);
 		g2.setStroke(new BasicStroke(2));
 		g2.draw(square);
+		g2.setColor(Color.BLACK);
+		g2.drawString(name, (int)square.getMinX(), (int)square.getCenterY());
 		g2.setColor(oldColor);
 		for(int i = 0; i<rows; i++){
 			Ellipse2D circle = new Ellipse2D.Double(x-15, y+5+25*i, 10, 10);
-			g2.setColor(Color.BLACK);
+			g2.setColor(circle_inside);
 			g2.fill(circle);
 			g2.setStroke(new BasicStroke(3));
-			g2.setColor(Colors.GREEN.getColor());
+			g2.setColor(circle_border);
 			g2.draw(circle);
 
 			Ellipse2D circle2 = new Ellipse2D.Double(x+5+rWidth, y+5+25*i, 10, 10);
-			g2.setColor(Color.BLACK);
+			g2.setColor(circle_inside);
 			g2.fill(circle2);
-			g2.setColor(new Color(50,205,50));
+			g2.setColor(circle_border);
 			g2.setStroke(new BasicStroke(3));
 			g2.draw(circle2);
 		}

@@ -26,6 +26,40 @@ public class CircleComponent implements Node {
 		color = aColor;
 	}
 	
+	public Color getColor(){
+		return color;
+	}
+	public void setColor(Color new_color){
+		color = new_color;
+	}
+	public double getX(){
+		return x;
+	}
+	public void setX(double newX){
+		x = newX;
+	}
+
+	public double getY(){
+		return y;
+	}
+	public void setY(double newY){
+		y = newY;
+	}
+	
+	public int getHeight(){
+		return rHeight;
+	}
+	public void setHeight(int new_height){
+		rHeight = new_height;
+	}
+	
+	public int getWidth(){
+		return rWidth;
+	}
+	public void setWidth(int new_width){
+		rWidth = new_width;
+	}
+	
 	public String toString() {
 		return "connect";
 	}
