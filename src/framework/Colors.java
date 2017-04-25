@@ -1,4 +1,4 @@
-package Application;
+package framework;
 
 import java.awt.Color;
 

@@ -7,8 +7,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import Application.Colors;
-
 public class GraphPanel extends JComponent {
 
 	public GraphPanel(ToolBar aToolBar, Graph aGraph) {

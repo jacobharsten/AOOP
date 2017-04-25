@@ -9,7 +9,6 @@ import java.util.List;
 import javax.swing.*;
 
 import Application.CircleComponent;
-import Application.Colors;
 
 public abstract class Graph implements Serializable {
 
@@ -82,7 +81,7 @@ public abstract class Graph implements Serializable {
 		g2.drawString("DAVE&COB EZ PCB", (int)square.getMinX(), (int)square.getMinY()-2);
 		g2.draw(square);
 
-		if(check_all_inter()){
+		if(check_all_edges()){
 			oldColor = g2.getColor();
 			g2.setColor(Color.RED);
 			g2.drawString("ERROR HANDLING: INTERSECTING LINES", 300, 530);
@@ -94,7 +93,7 @@ public abstract class Graph implements Serializable {
 		if(check_all_node()){
 			oldColor = g2.getColor();
 			g2.setColor(Color.RED);
-			if(!check_all_inter()){
+			if(!check_all_edges()){
 				g2.drawString("ERROR HANDLING: INTERSECTING NODES", 300, 530);
 				ImageIcon image = new ImageIcon("src/images/error.gif");
 				image.paintIcon(null, g2, 275, 512);
@@ -151,6 +150,16 @@ public abstract class Graph implements Serializable {
 		}
 		if(n1 != null && n2 == null && !check_inter(p1, p2)){
 			Node newNode = new CircleComponent(Colors.NAVYGREEN.getColor(), 5, 5, false);
+			
+			/*
+			 * DO SOME COOL MATH HERE PLS
+			 */
+			System.out.println("X: " + p2.getX() + " Y: " + p2.getY());
+			int x = (int) p2.getX()-70;
+			int y = (int) p2.getY()-70;
+			double d = Math.sqrt(x*x + y*y);
+			System.out.println(d);
+			
 			this.add(newNode, p2);
 			e.connect(n1, newNode);
 			edges.add(e);
@@ -171,7 +180,7 @@ public abstract class Graph implements Serializable {
 		return false;
 	}
 
-	public boolean check_all_inter(){
+	public boolean check_all_edges(){
 		Line2D line_e1;
 		Line2D line_e2;
 		for(Edge e : getEdges()){
