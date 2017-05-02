@@ -26,7 +26,7 @@ public class ShopBar extends JPanel {
 	
 	// Lägg till en -> .txt funktion. 
 	// Lägg till så man kan modda antalet komponenter 
-	// Lägg til button för att spara til text-fil
+	// Lägg till button för att spara til text-fil
 	
 	public ShopBar(){
 		setLayout(new BorderLayout());

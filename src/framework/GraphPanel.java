@@ -78,6 +78,7 @@ public class GraphPanel extends JComponent {
 						}
 					});
 					JMenuItem pBuy = new JMenuItem("Add selected to cart");
+					pBuy.setIcon(new ImageIcon("src/images/universal_add.png"));
 					pop.addSeparator();
 					pop.add(pBuy);
 					pBuy.addActionListener(new
@@ -89,6 +90,7 @@ public class GraphPanel extends JComponent {
 						}
 					});
 					JMenuItem pRem = new JMenuItem("Remove selected from cart");
+					pRem.setIcon(new ImageIcon("src/images/universal_delete.png"));
 					//pop.addSeparator();
 					pop.add(pRem);
 					pEdit.addActionListener(new
@@ -100,6 +102,7 @@ public class GraphPanel extends JComponent {
 						}
 					});
 					JMenuItem pBuyAll = new JMenuItem("Add all to cart");
+					pBuyAll.setIcon(new ImageIcon("src/images/addAll.png"));
 					pop.addSeparator();
 					pop.add(pBuyAll);
 					pBuyAll.addActionListener(new
@@ -112,6 +115,7 @@ public class GraphPanel extends JComponent {
 						}
 					});
 					JMenuItem pEmpty = new JMenuItem("Empty Cart");
+					pEmpty.setIcon(new ImageIcon("src/images/deleteAll.png"));
 					//pop.addSeparator();
 					pop.add(pEmpty);
 					pEmpty.addActionListener(new

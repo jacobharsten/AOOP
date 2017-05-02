@@ -48,7 +48,7 @@ public class GraphFrame extends JFrame {
 		mSave.setIcon(new ImageIcon("src/images/save.gif"));
 		mLoad.setIcon(new ImageIcon("src/images/import.gif"));
 		mCart.setIcon(new ImageIcon(new ImageIcon("src/images/mShoppingCart.png").getImage().getScaledInstance(20,20 , Image.SCALE_DEFAULT)));
-
+		mExit.setIcon(new ImageIcon(new ImageIcon("src/images/exit.png").getImage().getScaledInstance(18,18 , Image.SCALE_DEFAULT)));
 
 		mExit.addActionListener(new
 				ActionListener()
@@ -222,5 +222,5 @@ public class GraphFrame extends JFrame {
 	private Color bg_color;
 
 	public static final int FRAME_WIDTH = 900;
-	public static final int FRAME_HEIGHT = 650;
+	public static final int FRAME_HEIGHT = 700;
 }
