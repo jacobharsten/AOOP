@@ -186,9 +186,10 @@ public class GraphFrame extends JFrame {
 		panel = new GraphPanel(toolBar,shopBar, graph);
 		
 		
-		
+		// Fixa layer 5 att vara alla lager i olika färger.
 		tabPane = new JTabbedPane();
 		tabPane.addTab("Layer", panel);
+		SimpleGraph layer2 = new SimpleGraph();
 		tabPane.addTab("Layer2",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
 		tabPane.addTab("Layer3",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
 		tabPane.addTab("Layer4",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
@@ -220,6 +221,6 @@ public class GraphFrame extends JFrame {
 	private ToolBar toolBar;
 	private Color bg_color;
 
-	public static final int FRAME_WIDTH = 800;
+	public static final int FRAME_WIDTH = 900;
 	public static final int FRAME_HEIGHT = 650;
 }

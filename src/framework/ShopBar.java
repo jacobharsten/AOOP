@@ -23,6 +23,11 @@ public class ShopBar extends JPanel {
 	
 	private boolean visible;
 	
+	
+	// Lägg till en -> .txt funktion. 
+	// Lägg till så man kan modda antalet komponenter 
+	// Lägg til button för att spara til text-fil
+	
 	public ShopBar(){
 		setLayout(new BorderLayout());
 		bg_color = new Color(30,30,30);
