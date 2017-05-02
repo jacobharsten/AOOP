@@ -9,8 +9,9 @@ import javax.swing.event.ChangeListener;
 
 public class GraphPanel extends JComponent {
 
-	public GraphPanel(ToolBar aToolBar, Graph aGraph) {
+	public GraphPanel(ToolBar aToolBar,ShopBar aShopBar, Graph aGraph) {
 		toolBar = aToolBar;
+		shopBar = aShopBar;
 		graph = aGraph;
 		setBackground(Color.BLACK);
 
@@ -74,6 +75,51 @@ public class GraphPanel extends JComponent {
 						public void actionPerformed(ActionEvent event)
 						{
 							editSelected();
+						}
+					});
+					JMenuItem pBuy = new JMenuItem("Add selected to cart");
+					pop.addSeparator();
+					pop.add(pBuy);
+					pBuy.addActionListener(new
+							ActionListener()
+					{
+						public void actionPerformed(ActionEvent event)
+						{
+							shopBar.add(selected);
+						}
+					});
+					JMenuItem pRem = new JMenuItem("Remove selected from cart");
+					//pop.addSeparator();
+					pop.add(pRem);
+					pEdit.addActionListener(new
+							ActionListener()
+					{
+						public void actionPerformed(ActionEvent event)
+						{
+							shopBar.remove(selected);
+						}
+					});
+					JMenuItem pBuyAll = new JMenuItem("Add all to cart");
+					pop.addSeparator();
+					pop.add(pBuyAll);
+					pBuyAll.addActionListener(new
+							ActionListener()
+					{
+						public void actionPerformed(ActionEvent event)
+						{
+							shopBar.addAll(graph.getNodes());
+							// FUnktion för att lägga till allt
+						}
+					});
+					JMenuItem pEmpty = new JMenuItem("Empty Cart");
+					//pop.addSeparator();
+					pop.add(pEmpty);
+					pEmpty.addActionListener(new
+							ActionListener()
+					{
+						public void actionPerformed(ActionEvent event)
+						{
+							shopBar.emptyAll();
 						}
 					});
 					pop.show(GraphPanel.this, event.getX(), event.getY());
@@ -213,6 +259,7 @@ public class GraphPanel extends JComponent {
 	private JPopupMenu popup;
 	private Graph graph;
 	private ToolBar toolBar;
+	private ShopBar shopBar;
 	private Object selected;
 
 	private int mouse_x;

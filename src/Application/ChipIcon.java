@@ -38,14 +38,7 @@ public class ChipIcon implements Node {
 
 
 	public int adjustHeight(int r){
-		int result = 0;
-		if(r < 2){
-			result = 24 * r;
-		}
-		else {
-			result = 24 * r;
-		}
-		return result;
+		return 24 * r;
 	}
 	public String toString() {
 		return "Chip with + " + rows*2 + " legs";

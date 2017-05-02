@@ -13,6 +13,8 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.*;
 
+import Application.SimpleGraph;
+
 /**
  * This frame shows the toolbar and the graph.
  */
@@ -40,10 +42,13 @@ public class GraphFrame extends JFrame {
 		JMenuItem mSave = new JMenuItem("Save");
 		JMenuItem mNew = new JMenuItem("New");
 		JMenuItem mExit = new JMenuItem("Exit");
+		JMenuItem mCart = new JMenuItem("Show/Hide Cart");
 
 		mNew.setIcon(new ImageIcon("src/images/new.gif"));
 		mSave.setIcon(new ImageIcon("src/images/save.gif"));
 		mLoad.setIcon(new ImageIcon("src/images/import.gif"));
+		mCart.setIcon(new ImageIcon(new ImageIcon("src/images/mShoppingCart.png").getImage().getScaledInstance(20,20 , Image.SCALE_DEFAULT)));
+
 
 		mExit.addActionListener(new
 				ActionListener()
@@ -79,12 +84,26 @@ public class GraphFrame extends JFrame {
 				newFile();
 			}
 		});
+		mCart.addActionListener(new
+				ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				if(shopBar.getVisible())
+				shopBar.setVisible(false);
+				else{
+					shopBar.setVisible(true);
+				}
+			}
+		});
 
 		menuBar.add(mnMenu);
 		mnMenu.add(mNew);
 		mnMenu.addSeparator();
 		mnMenu.add(mSave);
 		mnMenu.add(mLoad);
+		mnMenu.addSeparator();
+		mnMenu.add(mCart);
 		mnMenu.addSeparator();
 		mnMenu.add(mExit);
 	}
@@ -162,11 +181,27 @@ public class GraphFrame extends JFrame {
 	
 	
 	public void graph_bars(){
+		shopBar = new ShopBar();
 		toolBar = new ToolBar(graph);
-		panel = new GraphPanel(toolBar, graph);
-		scrollPane = new JScrollPane(panel);
+		panel = new GraphPanel(toolBar,shopBar, graph);
+		
+		
+		
+		tabPane = new JTabbedPane();
+		tabPane.addTab("Layer", panel);
+		tabPane.addTab("Layer2",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
+		tabPane.addTab("Layer3",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
+		tabPane.addTab("Layer4",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
+		tabPane.addTab("Layer5",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
+		
+		tabPane.setBackground(bg_color);
+		tabPane.setForeground(Color.WHITE);
+		//TABBED FIXA
+		scrollPane = new JScrollPane(tabPane);
 		scrollPane.getViewport().setBackground(bg_color);
+		this.add(shopBar, BorderLayout.WEST);
 		this.add(toolBar, BorderLayout.SOUTH);
+		//this.add(tabPane, BorderLayout.CENTER);
 		this.add(scrollPane, BorderLayout.CENTER);
 	}
 	public int getWidth(){
@@ -180,6 +215,8 @@ public class GraphFrame extends JFrame {
 	private Graph graph;
 	private GraphPanel panel;
 	private JScrollPane scrollPane;
+	private JTabbedPane tabPane;
+	private ShopBar shopBar;
 	private ToolBar toolBar;
 	private Color bg_color;
 
