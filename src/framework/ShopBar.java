@@ -2,6 +2,7 @@ package framework;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,15 +30,17 @@ public class ShopBar extends JPanel {
 	JTextArea list;
 	private JLabel header;
 	private JButton save;
+	private JButton edit;
+	private JPanel buttons;
 	private Color bg_color;
 	private HashMap<String, Integer> shopList;
 	
 	private boolean visible;
 	
 	
-	// Lägg till en -> .txt funktion. 
+	// Lägg till en -> .txt funktion. - KLART
 	// Lägg till så man kan modda antalet komponenter 
-	// Lägg till button för att spara til text-fil
+	// Lägg till button för att spara til text-fil - KLART 
 	
 	public ShopBar(){
 		setLayout(new BorderLayout());
@@ -60,8 +63,11 @@ public class ShopBar extends JPanel {
 		header.setVisible(false);
 		
 		save = new JButton("Save");
-		save.setForeground(Color.BLACK);
-		save.setVisible(false);
+		save.setOpaque(true);
+		save.setBackground(Color.LIGHT_GRAY);
+		save.setForeground(Color.WHITE);
+		save.setBorderPainted(false);
+		//save.setVisible(false);
 		save.addActionListener(new
 				ActionListener()
 		{
@@ -70,10 +76,31 @@ public class ShopBar extends JPanel {
 				saveToFile();
 			}
 		});
+		edit = new JButton("Edit");
+		edit.setOpaque(true);
+		edit.setBackground(Color.LIGHT_GRAY);
+		edit.setForeground(Color.WHITE);
+		edit.setBorderPainted(false);
+		//save.setVisible(false);
+		edit.addActionListener(new
+				ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				editList();
+			}
+		});
+		buttons = new JPanel(new FlowLayout());
+		buttons.setBackground(Color.BLACK);
+		buttons.add(save);
+		buttons.add(edit);
 		
-		add(save, BorderLayout.SOUTH);
 		add(header, BorderLayout.NORTH);
 		add(list, BorderLayout.CENTER);
+		add(buttons, BorderLayout.SOUTH);
+	}
+	private void editList(){
+		System.out.println("Noob");
 	}
 	
 	private void saveToFile(){
