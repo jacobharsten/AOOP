@@ -3,13 +3,23 @@ package framework;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -18,6 +28,7 @@ public class ShopBar extends JPanel {
 	
 	JTextArea list;
 	private JLabel header;
+	private JButton save;
 	private Color bg_color;
 	private HashMap<String, Integer> shopList;
 	
@@ -47,13 +58,49 @@ public class ShopBar extends JPanel {
 		header.setIcon(kundvagn);
 		header.setForeground(Color.WHITE);
 		header.setVisible(false);
+		
+		save = new JButton("Save");
+		save.setForeground(Color.BLACK);
+		save.setVisible(false);
+		save.addActionListener(new
+				ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				saveToFile();
+			}
+		});
+		
+		add(save, BorderLayout.SOUTH);
 		add(header, BorderLayout.NORTH);
 		add(list, BorderLayout.CENTER);
+	}
+	
+	private void saveToFile(){
+		JFileChooser c = new JFileChooser();
+		if (c.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
+			try{
+				File file = c.getSelectedFile();
+				//ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+				PrintWriter out = new PrintWriter(file + ".txt");
+				out.println("ShoppingList");
+				out.println("----------------------");
+				
+				out.println(list.getText());
+				out.close();
+			}
+			catch (IOException exception)
+			{
+				JOptionPane.showMessageDialog(null,
+						exception);
+			}
+		}
 	}
 	
 	public void setVisible(boolean temp){
 		header.setVisible(temp);
 		list.setVisible(temp);
+		save.setVisible(temp);
 		visible = temp;
 	}
 	public boolean getVisible(){

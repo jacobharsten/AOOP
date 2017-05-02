@@ -186,14 +186,13 @@ public class GraphFrame extends JFrame {
 		panel = new GraphPanel(toolBar,shopBar, graph);
 		
 		
-		// Fixa layer 5 att vara alla lager i olika färger.
+		// kör 2 lager, och en som är alla lager på varandra
 		tabPane = new JTabbedPane();
 		tabPane.addTab("Layer", panel);
 		SimpleGraph layer2 = new SimpleGraph();
 		tabPane.addTab("Layer2",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
-		tabPane.addTab("Layer3",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
-		tabPane.addTab("Layer4",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
-		tabPane.addTab("Layer5",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
+		tabPane.addTab("ALL TABS",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
+		
 		
 		tabPane.setBackground(bg_color);
 		tabPane.setForeground(Color.WHITE);

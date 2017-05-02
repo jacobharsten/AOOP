@@ -119,7 +119,7 @@ public class ChipIcon implements Node {
 			g2.setStroke(new BasicStroke(3));
 			g2.setColor(circle_border);
 			g2.draw(circle);
-
+			
 			Ellipse2D circle2 = new Ellipse2D.Double(x+5+rWidth, y+5+25*i, 10, 10);
 			g2.setColor(circle_inside);
 			g2.fill(circle2);

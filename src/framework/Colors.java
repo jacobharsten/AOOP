@@ -5,8 +5,9 @@ import java.awt.Color;
 public enum Colors {
     GREEN(50, 205, 50), /* USES: Circle, line */
     LIGHTGREEN(255, 59, 48), /* USES: Borders, */
-    DARKGREEN(76, 217, 100), /* USES: Dot inside circles */
+    DARKGREEN(75, 217, 100), /* USES: Dot inside circles */
 	NAVYGREEN(35, 140, 35); /* USES: connection cricle */
+	
 
     private final int r;
     private final int g;
