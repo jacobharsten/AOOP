@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import Application.sladd_calculaterx;
+
 public class GraphPanel extends JComponent {
 
 	public GraphPanel(ToolBar aToolBar,ShopBar aShopBar, Graph aGraph) {
@@ -140,7 +142,7 @@ public class GraphPanel extends JComponent {
 					Edge newEdge = (Edge) prototype.clone();
 					if(graph.connect(newEdge, rubberBandStart, mousePoint)) selected = newEdge;
 				}
-
+				
 				revalidate();
 				repaint();
 

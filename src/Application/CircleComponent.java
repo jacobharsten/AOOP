@@ -74,7 +74,7 @@ public class CircleComponent implements Node {
 	}
 
 	public String toString() {
-		return "connect";
+		return "Connector";
 	}
 
 	public Object clone() {

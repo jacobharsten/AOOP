@@ -105,7 +105,7 @@ public abstract class Graph implements Serializable {
 		}
 
 		for (Edge e : edges){
-			e.draw(g2);
+			e.draw(g2);			
 		}
 
 		for (Node n : nodes)
