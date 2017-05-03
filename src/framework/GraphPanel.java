@@ -40,7 +40,8 @@ public class GraphPanel extends JComponent {
 				else if(tool instanceof Node && event.getButton() != MouseEvent.BUTTON3){
 					Node prototype = (Node) tool;
 					Node newNode = (Node) prototype.clone();
-					boolean added = graph.add(newNode, mousePoint);
+					Point2D new_p = new Point2D.Double(new_c((int)mousePoint.getX()),new_c((int)mousePoint.getY()));
+					boolean added = graph.add(newNode, new_p);
 					if(added){
 						selected = newNode;
 						dragStartPoint = mousePoint;
@@ -142,7 +143,7 @@ public class GraphPanel extends JComponent {
 					Edge newEdge = (Edge) prototype.clone();
 					if(graph.connect(newEdge, rubberBandStart, mousePoint)) selected = newEdge;
 				}
-				
+
 				revalidate();
 				repaint();
 
@@ -158,13 +159,16 @@ public class GraphPanel extends JComponent {
 				mouse_follow = true;
 				mouse_x = event.getX();
 				mouse_y = event.getY();
+
 				Point2D mousePoint = event.getPoint();
 				if(dragStartBounds != null){
 					if(selected instanceof Node){
 						Node n = (Node) selected;
 						Rectangle2D bounds = n.getBounds();
-						n.translate(dragStartBounds.getX() - bounds.getX() + mousePoint.getX() - dragStartPoint.getX(),
-								dragStartBounds.getY() - bounds.getY() + mousePoint.getY() - dragStartPoint.getY());
+						int new_X = (int) round((dragStartBounds.getX() - bounds.getX() + mousePoint.getX() - dragStartPoint.getX()), 16);
+						int new_Y = (int) round((dragStartBounds.getY() - bounds.getY() + mousePoint.getY() - dragStartPoint.getY()), 16);
+						n.translate(new_X, new_Y);
+						//n.translate(dragStartBounds.getX() - bounds.getX() + mousePoint.getX() - dragStartPoint.getX(), dragStartBounds.getY() - bounds.getY() + mousePoint.getY() - dragStartPoint.getY());
 
 					}
 
@@ -174,7 +178,9 @@ public class GraphPanel extends JComponent {
 			}
 		});
 	}
-
+	double round( double num, int multipleOf) {
+		return Math.floor((num + multipleOf/2) / multipleOf) * multipleOf;
+	}
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		graph.draw(g2);
@@ -261,8 +267,19 @@ public class GraphPanel extends JComponent {
 					JOptionPane.PLAIN_MESSAGE);        
 		}
 	}
-
-
+	
+	public int new_c(int p){
+		int c = 0;
+		int test_value = 0;
+		for(int i = 70; i<710; i+=16){
+			test_value = Math.abs(i-p);
+			if(test_value >= 0 && test_value <= 16){
+				c = i;
+			}
+		}
+		return c;
+	}
+	
 	private JPopupMenu popup;
 	private Graph graph;
 	private ToolBar toolBar;

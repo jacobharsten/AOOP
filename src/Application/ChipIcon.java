@@ -18,8 +18,8 @@ public class ChipIcon implements Node, Serializable {
 	private double y;
 	private double size;
 	private static final int DEFAULT_SIZE = 70;
-	private int rHeight = 20;
-	private int rWidth = 50;
+	private int rHeight = 16;
+	private int rWidth = 48;
 	private int rows;
 	private String name;
 	private Color border_color;
@@ -49,6 +49,7 @@ public class ChipIcon implements Node, Serializable {
 
 
 	public int adjustHeight(int r){
+		if(r == 1)return 16;
 		return 24 * r;
 	}
 	public String toString() {

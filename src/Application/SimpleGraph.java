@@ -6,7 +6,7 @@ import framework.*;
 
 public class SimpleGraph extends Graph {
 	public Node[] getNodePrototypes() {
-		Node[] nodeTypes = { new Gates(2), new ChipIcon(2), new ChipIcon(3), new CircleComponent(new Color(50,205,50), 15, 15, true) };
+		Node[] nodeTypes = { new Gates(1), new ChipIcon(1), new ChipIcon(3), new CircleComponent(new Color(50,205,50), 15, 15, true) };
 		return nodeTypes;
 	}
 

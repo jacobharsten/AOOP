@@ -77,7 +77,7 @@ public abstract class Graph implements Serializable {
 		}
 
 		g2.setColor(Color.GRAY);
-		g2.setStroke(new BasicStroke(4));
+		//	g2.setStroke(new BasicStroke(4));
 		g2.drawString("DAVE&COB EZ PCB", (int)square.getMinX(), (int)square.getMinY()-2);
 		g2.draw(square);
 
@@ -150,24 +150,25 @@ public abstract class Graph implements Serializable {
 		}
 		if(n1 != null && n2 == null && !check_inter(p1, p2)){
 			Node newNode = new CircleComponent(Colors.NAVYGREEN.getColor(), 5, 5, false);
-			
-			/*
-			 * DO SOME COOL MATH HERE PLS
-			 */
-			System.out.println("X: " + p2.getX() + " Y: " + p2.getY());
-			int x = (int) p2.getX()-70;
-			int y = (int) p2.getY()-70;
-			double d = Math.sqrt(x*x + y*y);
-			System.out.println(d);
-			
-			this.add(newNode, p2);
+			Point2D new_p = new Point2D.Double(new_c((int)p2.getX()),new_c((int)p2.getY()));		
+			this.add(newNode, new_p);
 			e.connect(n1, newNode);
 			edges.add(e);
 			return true;
 		}
 		return false;
 	}
-
+	public int new_c(int p){
+		int c = 0;
+		int test_value = 0;
+		for(int i = 70; i<710; i+=16){
+			test_value = Math.abs(i-p);
+			if(test_value >= 0 && test_value <= 16){
+				c = i;
+			}
+		}
+		return c;
+	}
 	public boolean check_inter(Point2D start_point, Point2D end_point){
 		Line2D existing_line;
 		Line2D inter_line = new Line2D.Double(start_point, end_point);

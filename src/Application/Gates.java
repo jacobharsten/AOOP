@@ -13,7 +13,7 @@ public class Gates implements Node {
 	private Color color;
 	private static final int DEFAULT_SIZE = 70;
 	private int rHeight = 20;
-	private int rWidth = 50;
+	private int rWidth = 48;
 	private int rows;
 	private String name;
 
@@ -30,7 +30,7 @@ public class Gates implements Node {
 
 	}
 	public int adjustHeight(int r){
-		return r * 24;
+		return r * 16;
 	}
 	
 	public String toString() {
