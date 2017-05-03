@@ -93,7 +93,7 @@ public class GraphPanel extends JComponent {
 					pRem.setIcon(new ImageIcon("src/images/universal_delete.png"));
 					//pop.addSeparator();
 					pop.add(pRem);
-					pEdit.addActionListener(new
+					pRem.addActionListener(new
 							ActionListener()
 					{
 						public void actionPerformed(ActionEvent event)

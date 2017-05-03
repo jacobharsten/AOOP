@@ -182,6 +182,7 @@ public class GraphFrame extends JFrame {
 	
 	public void graph_bars(){
 		shopBar = new ShopBar();
+		//shopBar.setPreferredSize(new Dimension(180,200));
 		toolBar = new ToolBar(graph);
 		panel = new GraphPanel(toolBar,shopBar, graph);
 		
