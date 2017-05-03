@@ -113,7 +113,7 @@ public class ChipIcon implements Node, Serializable {
 		g2.setStroke(new BasicStroke(2));
 		g2.draw(square);
 		g2.setColor(Color.BLACK);
-		g2.drawString(name, (int)square.getMinX(), (int)square.getCenterY());
+		g2.drawString(name, (int)square.getMinX()+2, (int)square.getCenterY());
 		g2.setColor(oldColor);
 		for(int i = 0; i<rows; i++){
 			Ellipse2D circle = new Ellipse2D.Double(x-15, y+5+25*i, 10, 10);
