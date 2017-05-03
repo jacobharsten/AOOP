@@ -29,6 +29,12 @@ public class Gates implements Node {
 		name = "";
 
 	}
+	public void setWidth(int r){
+		rWidth = r;
+	}
+	public int getWidth(){
+		return rWidth;
+	}
 	public int adjustHeight(int r){
 		return r * 16;
 	}
