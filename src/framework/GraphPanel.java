@@ -2,6 +2,7 @@ package framework;
 
 import java.awt.*;
 import java.awt.geom.*;
+import java.util.ArrayList;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

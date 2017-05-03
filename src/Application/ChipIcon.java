@@ -2,10 +2,17 @@ package Application;
 
 import java.awt.*;
 import java.awt.geom.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 
 import framework.*;
 
-public class ChipIcon implements Node {
+public class ChipIcon implements Node, Serializable {
 
 	private double x;
 	private double y;
@@ -18,6 +25,8 @@ public class ChipIcon implements Node {
 	private Color border_color;
 	private Color circle_inside;
 	private Color circle_border;
+	private boolean[] active_pin_l;
+	private boolean[] active_pin_r;
 
 	public ChipIcon(int mRows) {
 		if(mRows > 4){
@@ -34,6 +43,8 @@ public class ChipIcon implements Node {
 		circle_border = Colors.GREEN.getColor();
 
 		name = "";
+		active_pin_l = new boolean[3];
+		active_pin_r = new boolean[3];
 	}
 
 
@@ -94,15 +105,6 @@ public class ChipIcon implements Node {
 		y = newY;
 	}
 
-
-	public Object clone() {
-		try {
-			return super.clone();
-		} catch (CloneNotSupportedException exception) {
-			return null;
-		}
-	}
-
 	public void draw(Graphics2D g2) {
 		Rectangle2D square = new Rectangle2D.Double(x, y, rWidth, rHeight);
 		Color oldColor = g2.getColor();
@@ -114,14 +116,26 @@ public class ChipIcon implements Node {
 		g2.setColor(oldColor);
 		for(int i = 0; i<rows; i++){
 			Ellipse2D circle = new Ellipse2D.Double(x-15, y+5+25*i, 10, 10);
-			g2.setColor(circle_inside);
+			if(active_pin_l[i]){
+				g2.setColor(Color.GREEN);
+				active_pin_l[i] = false;
+			}
+			else {
+				g2.setColor(circle_inside);
+			}
 			g2.fill(circle);
 			g2.setStroke(new BasicStroke(3));
 			g2.setColor(circle_border);
 			g2.draw(circle);
-			
+
 			Ellipse2D circle2 = new Ellipse2D.Double(x+5+rWidth, y+5+25*i, 10, 10);
-			g2.setColor(circle_inside);
+			if(active_pin_r[i]){
+				g2.setColor(Color.GREEN);
+				active_pin_r[i] = false;
+			}
+			else {
+				g2.setColor(circle_inside);
+			}
 			g2.fill(circle2);
 			g2.setColor(circle_border);
 			g2.setStroke(new BasicStroke(3));
@@ -158,22 +172,28 @@ public class ChipIcon implements Node {
 			if(rows > 2){
 				if(point_y1 > center_y1){
 					new_y = getBounds().getMaxY() - 10;
+					active_pin_r[2] = true;
 				}
 				else if(point_y1 < center_y2){
 					new_y = getBounds().getMinY() + 10;
+					active_pin_r[0] = true;
 				}
 				else  {
 					new_y = getBounds().getCenterY();
+					active_pin_r[1] = true;
 				}
 			}
 			else {
 				double y1 = getBounds().getCenterY();
 				double y2 = aPoint.getY();
 				if(y1 < y2){
+					if(rows < 2) active_pin_r[0] = true;
 					new_y = getBounds().getMaxY() - 10;
+					active_pin_r[1] = true;
 				}
 				else {
 					new_y = getBounds().getMinY() + 10;
+					active_pin_r[0] = true;
 				}
 			}
 			return new Point2D.Double(getBounds().getMaxX()+15, new_y);
@@ -182,25 +202,48 @@ public class ChipIcon implements Node {
 			if(rows > 2){
 				if(point_y1 > center_y1){
 					new_y = getBounds().getMaxY() - 10;
+					active_pin_l[2] = true;
 				}
 				else if(point_y1 < center_y2){
 					new_y = getBounds().getMinY() + 10;
+					active_pin_l[0] = true;
 				}
 				else {
 					new_y = getBounds().getCenterY();
+					active_pin_l[1] = true;
 				}
 			}
 			else{
 				double y1 = getBounds().getCenterY();
 				double y2 = aPoint.getY();
 				if(y1 < y2){
+					if(rows < 2) active_pin_l[0] = true;
 					new_y = getBounds().getMaxY() - 10;
+					active_pin_l[1] = true;
 				}
 				else {
 					new_y = getBounds().getMinY() + 10;
+					active_pin_l[0] = true;
 				}
 			}
 			return new Point2D.Double(getBounds().getMinX()-15, new_y);
 		}
 	}
+
+	public Object clone() {
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject(this);
+
+			ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+			ObjectInputStream ois = new ObjectInputStream(bais);
+			return (ChipIcon) ois.readObject();
+		} catch (IOException e) {
+			return null;
+		} catch (ClassNotFoundException e) {
+			return null;
+		}
+	}
+	
 }
