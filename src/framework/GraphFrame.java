@@ -182,7 +182,6 @@ public class GraphFrame extends JFrame {
 	
 	public void graph_bars(){
 		shopBar = new ShopBar();
-		//shopBar.setPreferredSize(new Dimension(180,200));
 		toolBar = new ToolBar(graph);
 		panel = new GraphPanel(toolBar,shopBar, graph);
 		
@@ -191,6 +190,7 @@ public class GraphFrame extends JFrame {
 		tabPane = new JTabbedPane();
 		tabPane.addTab("Layer", panel);
 		SimpleGraph layer2 = new SimpleGraph();
+		
 		tabPane.addTab("Layer2",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
 		tabPane.addTab("ALL TABS",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
 		
@@ -200,9 +200,9 @@ public class GraphFrame extends JFrame {
 		//TABBED FIXA
 		scrollPane = new JScrollPane(tabPane);
 		scrollPane.getViewport().setBackground(bg_color);
+		
 		this.add(shopBar, BorderLayout.WEST);
 		this.add(toolBar, BorderLayout.SOUTH);
-		//this.add(tabPane, BorderLayout.CENTER);
 		this.add(scrollPane, BorderLayout.CENTER);
 	}
 	public int getWidth(){
