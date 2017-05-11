@@ -6,11 +6,13 @@ import java.util.*;
 import javax.swing.*;
 
 public class ToolBar extends JPanel {
-
+	/**
+    Constructs a tool bar with a selecter tool.
+	 */
 	public ToolBar(Graph graph) {
 		group = new ButtonGroup();
 		tools = new ArrayList<Object>();
-		
+
 		JToggleButton editor = new JToggleButton();
 		editor.setIcon(new ImageIcon("src/images/edit.gif"));
 		group.add(editor);
@@ -25,6 +27,12 @@ public class ToolBar extends JPanel {
 		for (Edge e : edgeTypes)
 			add(e);
 	}
+
+	/**
+    Gets the node or edge prototype that is associated with
+    the currently selected button
+    @return a Node or Edge prototype
+	 */
 	public Object getSelectedTool() {
 		int i = 0;
 		for (Object o : tools) {
@@ -35,6 +43,10 @@ public class ToolBar extends JPanel {
 		return null;
 	}
 
+	/**
+    Adds a node to the tool bar.
+    @param n the node to add
+	 */
 	public void add(final Node n) {
 		JToggleButton button = new JToggleButton(new Icon() {
 			public int getIconHeight() {
@@ -66,6 +78,10 @@ public class ToolBar extends JPanel {
 		tools.add(n);
 	}
 
+	/**
+    Adds a edge to the tool bar.
+    @param n the edge to add
+	 */
 	public void add(final Edge e)
 	{
 		JToggleButton button = new JToggleButton(new

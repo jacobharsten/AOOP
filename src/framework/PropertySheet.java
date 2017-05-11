@@ -134,18 +134,6 @@ public class PropertySheet extends JPanel
 	private ArrayList<ChangeListener> changeListeners 
 	= new ArrayList<ChangeListener>();
 
-	/*
-	public static void main(String[] args){
-		TestDate x = new TestDate("dawid", 10, true);
-		PropertySheet sheet = new PropertySheet(x);
-		JOptionPane.showMessageDialog(null, 
-				sheet, 
-				"Properties", 
-				JOptionPane.PLAIN_MESSAGE); 
-
-		System.out.println(x.getAge());
-	}
-	 */
 }
 
 

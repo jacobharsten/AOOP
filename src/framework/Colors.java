@@ -14,6 +14,12 @@ public enum Colors {
     private final int b;
     private final String rgb;
 
+    /**
+     * Gets the value
+     * @param r gets the red from the color
+     * @param g gets the green from the color
+     * @param b gets the blue from the color
+     */
     private Colors(final int r,final int g,final int b) {
         this.r = r;
         this.g = g;
@@ -21,6 +27,10 @@ public enum Colors {
         this.rgb = r + ", " + g + ", " + b;
     }
 
+    /**
+     * Gets the color.
+     * @return the color
+     */
     public Color getColor(){
         return new Color(r,g,b);
     }    

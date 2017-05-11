@@ -17,21 +17,34 @@ public abstract class Graph implements Serializable {
 	private int board_width = 660;
 	private int board_height = 400;
 
+	private String title = "DAVE&COB EZ PCB";
+
 	public abstract Node[] getNodePrototypes();
 	public abstract Edge[] getEdgePrototypes();
-
+	/**
+	 * Constructs a Graph with no nodes and edges.
+	 */
 	public Graph() {
 		nodes = new ArrayList<Node>();
 		edges = new ArrayList<Edge>();
 	}
-
+	/**
+    Adds a node to the graph so that the top left corner of
+    the bounding rectangle is at the given point.
+    @param n the node to add
+    @param p the desired location
+	 */
 	public boolean add(Node n, Point2D p) {
 		Rectangle2D bounds = n.getBounds();
 		n.translate(p.getX() - bounds.getX(), p.getY() - bounds.getY());
 		nodes.add(n);
 		return true;
 	}
-
+	/**
+    Finds a node containing the given point.
+    @param p a point
+    @return a node containing p or null if no nodes contain p
+	 */
 	public Node findNode(Point2D p){
 		for(int i = 0; i<nodes.size(); i++ ){
 			Node n = nodes.get(i);
@@ -42,6 +55,12 @@ public abstract class Graph implements Serializable {
 		return null;
 	}
 
+
+	/**
+    Finds an edge containing the given point.
+    @param p a point
+    @return an edge containing p or null if no edges contain p
+	 */
 	public Edge findEdge(Point2D p){
 		for(int i = 0; i<edges.size(); i++ ){
 			Edge n = edges.get(i);
@@ -51,14 +70,25 @@ public abstract class Graph implements Serializable {
 		}
 		return null;
 	}
-
+	/**
+	 * Gets the width of the Graph.
+	 * @return the width
+	 */
 	public int getWidth(){
 		return board_width;
 	}
+	/**
+	 * Gets the height of the Graph.
+	 * @return the height
+	 */
 	public int getHeight(){
 		return board_height;
 	}
 
+	/**
+    Draws the graph
+    @param g2 the graphics context
+	 */
 	public void draw(Graphics2D g2) {
 		Rectangle2D square = new Rectangle2D.Double(70, 70, board_width, board_height);
 		Color oldColor = g2.getColor();
@@ -77,8 +107,7 @@ public abstract class Graph implements Serializable {
 		}
 
 		g2.setColor(Color.GRAY);
-		//	g2.setStroke(new BasicStroke(4));
-		g2.drawString("DAVE&COB EZ PCB", (int)square.getMinX(), (int)square.getMinY()-2);
+		g2.drawString(title, (int)square.getMinX(), (int)square.getMinY()-2);
 		g2.draw(square);
 
 		if(check_all_edges()){
@@ -111,7 +140,10 @@ public abstract class Graph implements Serializable {
 		for (Node n : nodes)
 			n.draw(g2);
 	}
-
+	/**
+    Removes a node and all edges that start or end with that node
+    @param n the node to remove
+	 */
 	public void removeNode(Node n){
 		for(int i = edges.size()-1; i >=0; i-- ){
 			Edge e = edges.get(i);
@@ -122,10 +154,18 @@ public abstract class Graph implements Serializable {
 		nodes.remove(n);
 	}
 
+	/**
+    Removes an edge from the graph.
+    @param e the edge to remove
+	 */
 	public void removeEdge(Edge n){
 		edges.remove(n);
 	}
-
+	/**
+    Gets the smallest rectangle enclosing the graph
+    @param g2 the graphics context
+    @return the bounding rectangle
+	 */
 	public Rectangle2D getBounds(Graphics2D g2){
 		Rectangle2D r = null;
 
@@ -139,7 +179,24 @@ public abstract class Graph implements Serializable {
 		}
 		return r == null ? new Rectangle2D.Double() : r;
 	}
+	/**
+    Adds an edge to the graph that joins the nodes containing
+    the given points. If the points aren't both inside nodes,
+    then no edge is added.
+    @param e the edge to add
+    @param p1 a point in the starting node
+    @param p2 a point in the ending node
+	 */
 
+	/**
+	 * Adds an edge to the graph that joins the nodes containing
+	 * the given points. If p1 is inside a node and p2 aren't containing 
+	 * a node, a CircleComponent are created and connected to.
+	 * @param e the edge to add
+	 * @param p1 a point in the starting node
+	 * @param p2 a point in the ending node
+	 * @return true if connected
+	 */
 	public boolean connect(Edge e, Point2D p1, Point2D p2){
 		Node n1 = findNode(p1);
 		Node n2 = findNode(p2);
@@ -158,6 +215,12 @@ public abstract class Graph implements Serializable {
 		}
 		return false;
 	}
+
+	/**
+	 * Adds the edge to the grid by calculating its position.
+	 * @param p point where it should add
+	 * @return the new position made for the point
+	 */
 	public int new_c(int p){
 		int c = 0;
 		int test_value = 0;
@@ -169,6 +232,13 @@ public abstract class Graph implements Serializable {
 		}
 		return c;
 	}
+
+	/**
+	 * Check if two points intersect each other.
+	 * @param start_point the starting point
+	 * @param end_point the ending point
+	 * @return true if the lines intersects
+	 */
 	public boolean check_inter(Point2D start_point, Point2D end_point){
 		Line2D existing_line;
 		Line2D inter_line = new Line2D.Double(start_point, end_point);
@@ -181,6 +251,10 @@ public abstract class Graph implements Serializable {
 		return false;
 	}
 
+	/**
+	 * Goes through all edges in the list and check for intersects.
+	 * @return true if two or more edge intersects 
+	 */
 	public boolean check_all_edges(){
 		Line2D line_e1;
 		Line2D line_e2;
@@ -195,6 +269,10 @@ public abstract class Graph implements Serializable {
 		}
 		return false;
 	}
+	/**
+	 * Goes through all nodes in the list and check for intersects.
+	 * @return true if two or more node intersects 
+	 */
 	public boolean check_all_node(){
 		Rectangle2D line_e1;
 		Rectangle2D line_e2;

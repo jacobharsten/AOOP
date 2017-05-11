@@ -16,8 +16,6 @@ public class ChipIcon implements Node, Serializable {
 
 	private double x;
 	private double y;
-	private double size;
-	private static final int DEFAULT_SIZE = 70;
 	private int rHeight = 16;
 	private int rWidth = 48;
 	private int rows;
@@ -28,11 +26,15 @@ public class ChipIcon implements Node, Serializable {
 	private boolean[] active_pin_l;
 	private boolean[] active_pin_r;
 
+	/**
+	 * Construct a ChipIcon node with given row size. 
+	 * @param mRows the row height.
+	 * @postcondition mRows < 4
+	 */
 	public ChipIcon(int mRows) {
 		if(mRows > 4){
 			mRows = 3;
 		}
-		size = DEFAULT_SIZE;
 		rows = mRows;
 		rHeight = adjustHeight(mRows);
 		x = 0;
@@ -47,17 +49,34 @@ public class ChipIcon implements Node, Serializable {
 		active_pin_r = new boolean[3];
 	}
 
-
+	/**
+	 * Adjust the height of the ChipIcon.
+	 * @param r amount of rows wanted
+	 * @return the row multiplied by 24
+	 */
 	public int adjustHeight(int r){
 		if(r == 1)return 16;
 		return 24 * r;
 	}
+
+	/**
+	 * @return name of the Chip with leg numbers
+	 */
 	public String toString() {
 		return "Chip with + " + rows*2 + " legs";
 	}
+	/**
+	 * Gets the rows.
+	 * @return row numbers
+	 */
 	public int getRows(){
 		return rows;
 	}
+	/**
+	 * Set a new value of rows.
+	 * @param newRows new value of rows.
+	 * @postcondition newRows < 4
+	 */
 	public void setRows(int newRows){
 		if(newRows > 4){
 			newRows = 3;
@@ -65,43 +84,91 @@ public class ChipIcon implements Node, Serializable {
 		rows = newRows;
 		rHeight = adjustHeight(rows);
 	}
+
+	/**
+	 * Gets the name of the ChipIcon
+	 * @return the name
+	 */
 	public String getName(){
 		return name;
 	}
+	/**
+	 * Set a new name to the ChipIcon
+	 * @param n the new name
+	 */
 	public void setName(String n){
 		name = n;
 	}
-
+	/**
+	 * Gets the color of the border.
+	 * @return the color of the border
+	 */
 	public Color getBorderColor(){
 		return border_color;
 	}
+	/**
+	 * Set a new color of the border of the ChipIcon.
+	 * @param new_color the new color of the border
+	 */
 	public void setBorderColor(Color new_color){
 		border_color = new_color;
 	}
+
+	/**
+	 * Get the circle inside of the borders color.
+	 * @return circle_inside color
+	 */
 	public Color getCircleColor(){
 		return circle_inside;
 	}
+
+	/**
+	 * Set a new circle color.
+	 * @param new_color is the new color of the circle
+	 */
 	public void setCircleColor(Color new_color){
 		circle_inside = new_color;
 	}
 
+	/**
+	 * Gets the circle border color.
+	 * @return the circle border color
+	 */
 	public Color getCircleBorderColor(){
 		return circle_border;
 	}
+	/**
+	 * Sets a new color of the circle border.
+	 * @param new_color new color on the circles border
+	 */
 	public void setCircleBorderColor(Color new_color){
 		circle_border = new_color;
 	}
-
+	/**
+	 * Returns the value of the x-coordinate.
+	 * @return x-coordinate value
+	 */
 	public double getX(){
 		return x;
 	}
+	/**
+	 * Set a new value of x-coordinate.
+	 * @param newX the new value in x-coordinate
+	 */
 	public void setX(double newX){
 		x = newX;
 	}
-
+	/**
+	 * Returns the value of the object in y-coordinate.
+	 * @return y-coordinate value
+	 */
 	public double getY(){
 		return y;
 	}
+	/**
+	 * Set a new value of y-coordinate.
+	 * @param newX the new value in y-coordinate
+	 */
 	public void setY(double newY){
 		y = newY;
 	}
@@ -230,7 +297,6 @@ public class ChipIcon implements Node, Serializable {
 			return new Point2D.Double(getBounds().getMinX()-15, new_y);
 		}
 	}
-
 	public Object clone() {
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -246,5 +312,5 @@ public class ChipIcon implements Node, Serializable {
 			return null;
 		}
 	}
-	
+
 }

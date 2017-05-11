@@ -17,18 +17,34 @@ public class LineEdge extends AbstractEdge {
 		strokeSize = size;
 	}
 
+	/**
+	 * Get the size of the line.
+	 * @return the size of the line
+	 */
 	public int getStrokeSize(){
 		return strokeSize;
 	}
+	/**
+	 * Sets the size of the stroke
+	 * @param s the size of the stroke
+	 */
 	public void setStrokeSize(int s){
 		if(s < 10){
 			strokeSize = s; 
 		}
 	}
 
+	/**
+	 * Gets the color of the line.
+	 * @return the color of the line
+	 */
 	public Color getColor(){
 		return c;
 	}
+	/**
+	 * Sets a color to the line
+	 * @param new_color a color
+	 */
 	public void setColor(Color new_color){
 		c = new_color;
 	}

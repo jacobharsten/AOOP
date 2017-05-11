@@ -15,6 +15,10 @@ public class CircleNode implements Node {
 	private static final int rHeight = 10;
 	private static final int rWidth = 10;
 
+	/**
+	 * Construct a CircleNode 
+	 * @param aColor
+	 */
 	public CircleNode(Color aColor) {
 		size = DEFAULT_SIZE;
 		x = 0;
@@ -22,22 +26,45 @@ public class CircleNode implements Node {
 		color = aColor;
 	}
 	
+	/**
+	 * Gets the color of the CircleComponent.
+	 * @return Color of the CircleComponent
+	 */
 	public Color getColor(){
 		return color;
 	}
+	/**
+	 * Sets a new color of the CircleComponent.
+	 * @param new_color is the new color of the CircleComponent
+	 */
 	public void setColor(Color new_color){
 		color = new_color;
 	}
+	/**
+	 * Returns the value of the x-coordinate.
+	 * @return x-coordinate value
+	 */
 	public double getX(){
 		return x;
 	}
+	/**
+	 * Set a new value of x-coordinate.
+	 * @param newX the new value in x-coordinate
+	 */
 	public void setX(double newX){
 		x = newX;
 	}
-
+	/**
+	 * Returns the value of the object in y-coordinate.
+	 * @return y-coordinate value
+	 */
 	public double getY(){
 		return y;
 	}
+	/**
+	 * Set a new value of y-coordinate.
+	 * @param newX the new value in y-coordinate
+	 */
 	public void setY(double newY){
 		y = newY;
 	}
