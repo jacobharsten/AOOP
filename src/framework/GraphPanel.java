@@ -12,6 +12,13 @@ import Application.sladd_calculaterx;
 
 public class GraphPanel extends JComponent {
 
+	/**
+	 * Constructs a graph.
+	 * @param aToolBar the tool bar with the tools
+	 * @param aShopBar the shop bar with items added to buy
+	 * @param aGraph the graph to be displayed and edited
+	 */
+
 	public GraphPanel(ToolBar aToolBar,ShopBar aShopBar, Graph aGraph) {
 		toolBar = aToolBar;
 		shopBar = aShopBar;
@@ -178,9 +185,11 @@ public class GraphPanel extends JComponent {
 			}
 		});
 	}
+
 	double round( double num, int multipleOf) {
 		return Math.floor((num + multipleOf/2) / multipleOf) * multipleOf;
 	}
+
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		graph.draw(g2);
@@ -212,7 +221,12 @@ public class GraphPanel extends JComponent {
 			}
 		}
 	}
-
+	/**
+	 * Checks if two points intersect with existing edges on the graph
+	 * @param start_point starting point
+	 * @param end_point ending point
+	 * @return true if the line is intersecting another line
+	 */
 	public boolean check_inter(Point2D start_point, Point2D end_point){
 		Line2D existing_line;
 		Line2D inter_line = new Line2D.Double(start_point, end_point);
@@ -225,12 +239,23 @@ public class GraphPanel extends JComponent {
 		return false;
 	}
 
-
+	/**
+    Draws a single "grabber", a filled square
+    @param g2 the graphics context
+    @param x the x coordinate of the center of the grabber
+    @param y the y coordinate of the center of the grabber
+	 */
 	public static void drawGrabber(Graphics2D g2, double x, double y){
 		g2.setColor(new Color(225, 0, 0));
 		g2.fill(new Rectangle2D.Double(x-5/2, y-5/2, 5, 5));
 	}
 
+	/**
+	 * Draws current coordinates of the mouse pointer
+	 * @param g2 the graphics context
+	 * @param x the x coordinate of the center of the mouse pointer
+	 * @param y the y coordinate of the center of the mouse pointer
+	 */
 	public void drawCoord(Graphics2D g2, double x, double y){
 		if(mouse_follow){
 			g2.setColor(new Color(225, 0, 0));
@@ -238,6 +263,9 @@ public class GraphPanel extends JComponent {
 		}
 	}
 
+	/**
+	 * Deletes the selected node or edge.
+	 */
 	public void deleteSelected(){
 		if(selected instanceof Node){
 			graph.removeNode((Node)selected);
@@ -249,6 +277,9 @@ public class GraphPanel extends JComponent {
 		repaint();
 	}
 
+	/**
+    Edits the properties of the selected graph element.
+	 */
 	public void editSelected()
 	{
 		if(selected != null){
@@ -267,7 +298,12 @@ public class GraphPanel extends JComponent {
 					JOptionPane.PLAIN_MESSAGE);        
 		}
 	}
-	
+
+	/**
+	 * Replace an added item to new position to the grid.
+	 * @param p starting coordinate
+	 * @return new calculated coordinate to the grid
+	 */
 	public int new_c(int p){
 		int c = 0;
 		int test_value = 0;
@@ -279,7 +315,7 @@ public class GraphPanel extends JComponent {
 		}
 		return c;
 	}
-	
+
 	private JPopupMenu popup;
 	private Graph graph;
 	private ToolBar toolBar;

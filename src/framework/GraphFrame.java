@@ -24,7 +24,7 @@ public class GraphFrame extends JFrame {
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		
+
 		bg_color = new Color(30,30,30);
 
 		this.graph = graph;
@@ -90,7 +90,7 @@ public class GraphFrame extends JFrame {
 			public void actionPerformed(ActionEvent event)
 			{
 				if(shopBar.getVisible())
-				shopBar.setVisible(false);
+					shopBar.setVisible(false);
 				else{
 					shopBar.setVisible(true);
 				}
@@ -133,6 +133,10 @@ public class GraphFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * Saves the graph.
+	 */
+
 	private void saveFile(){
 		JFileChooser c = new JFileChooser();
 		if (c.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
@@ -150,6 +154,9 @@ public class GraphFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * Opens a saved graph.
+	 */
 	private void openFile(){
 		JFileChooser c = new JFileChooser();
 		int r = c.showOpenDialog(this);
@@ -178,36 +185,46 @@ public class GraphFrame extends JFrame {
 			}
 		}
 	}
-	
-	
+
+	/**
+	 * Creates all bars on the graph.
+	 */
 	public void graph_bars(){
 		shopBar = new ShopBar();
 		toolBar = new ToolBar(graph);
 		panel = new GraphPanel(toolBar,shopBar, graph);
-		
-		
+
+
 		// kör 2 lager, och en som är alla lager på varandra
 		tabPane = new JTabbedPane();
 		tabPane.addTab("Layer", panel);
 		SimpleGraph layer2 = new SimpleGraph();
-		
+
 		tabPane.addTab("Layer2",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
 		tabPane.addTab("ALL TABS",new GraphPanel(toolBar, shopBar, new SimpleGraph()));
-		
-		
+
+
 		tabPane.setBackground(bg_color);
 		tabPane.setForeground(Color.WHITE);
 		//TABBED FIXA
 		scrollPane = new JScrollPane(tabPane);
 		scrollPane.getViewport().setBackground(bg_color);
-		
+
 		this.add(shopBar, BorderLayout.WEST);
 		this.add(toolBar, BorderLayout.SOUTH);
 		this.add(scrollPane, BorderLayout.CENTER);
 	}
+	/**
+	 * Gets the frame width.
+	 * @param FRAME_WIDTH the width
+	 */
 	public int getWidth(){
 		return FRAME_WIDTH;
 	}
+	/**
+	 * Gets the frame height
+	 * @param FRAME_HEIGHT the height
+	 */
 	public int getHeight(){
 		return FRAME_HEIGHT;
 	}

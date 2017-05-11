@@ -17,16 +17,19 @@ public abstract class Graph implements Serializable {
 	private int board_width = 660;
 	private int board_height = 400;
 
-	private String title = "DAVE&COB EZ PCB";
+	private String title;
 
 	public abstract Node[] getNodePrototypes();
 	public abstract Edge[] getEdgePrototypes();
 	/**
 	 * Constructs a Graph with no nodes and edges.
+	 * Sets the title of the graph.
 	 */
 	public Graph() {
 		nodes = new ArrayList<Node>();
 		edges = new ArrayList<Edge>();
+		
+		title = "DAVE&COB EZ PCB";
 	}
 	/**
     Adds a node to the graph so that the top left corner of
